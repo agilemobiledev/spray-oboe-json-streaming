@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+  <script src="oboe-browser.min.js"></script>
+  <script src="raphael.2.1.0.min.js"></script>
+  <script src="justgage.js"></script>
+
+  <script>
+    window.onload = function(){
+      var g1 = new JustGage({
+        id: "g1",
+        value: getRandomInt(0, 100),
+        min: 0,
+        max: 100,
+        title: "Throughput",
+        label: "MB/s"
+      });
+
+      var g2 = new JustGage({
+        id: "g2",
+        value: getRandomInt(0, 100),
+        min: 0,
+        max: 100,
+        title: "Throughput",
+        label: "MB/s"
+      });
+
+      var g3 = new JustGage({
+        id: "g3",
+        value: getRandomInt(0, 100),
+        min: 0,
+        max: 100,
+        title: "Throughput",
+        label: "MB/s"
+      });
+
+      oboe('http://localhost:8080/stream/test')
+        .node('count', function( count ){
+          //console.log( 'Count', count);
+          g1.refresh(count, count+getRandomInt(0, 100));
+        });
+    }
+  </script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"><div id="g1"></div></div>
+    <div class="col-md-4"><div id="g2"></div></div>
+    <div class="col-md-4"><div id="g3"></div></div>
+  </div>
+</div>
+
+
+</body>
+</html> 
